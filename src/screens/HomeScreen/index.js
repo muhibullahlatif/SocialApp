@@ -1,36 +1,35 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, FlatList, Dimensions, ActivityIndicator } from 'react-native';
 import Styles from './style';
 import Icons from '../../assets/icons';
 import Images from '../../assets/images';
 import Header from '../../components/HeaderComponent';
-
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { allPostData } from '../../redux/actions/appActions';
+ 
 const { height } = Dimensions.get('window');
 
-const postData = [
-    {
-        id: '1',
-        title: 'Useful filters for your landscape photos',
-        body: 'This collection of awesome filters for your landscap…This collection of awesome filters for your landscap…'
-    },
-    {
-        id: '2',
-        title: 'Useful filters for your landscape photos',
-        body: 'This collection of awesome filters for your landscap…This collection of awesome filters for your landscap…'
-    },
-    {
-        id: '3',
-        title: 'Useful filters for your landscape photos',
-        body: 'This collection of awesome filters for your landscap…This collection of awesome filters for your landscap…'
-    },
-    {
-        id: '4',
-        title: 'Useful filters for your landscape photos',
-        body: 'This collection of awesome filters for your landscap…This collection of awesome filters for your landscap…'
-    },
-];
-
 const HomeScreen = (props) => {
+    const [pageCurrent, setPageCurrent] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    
+    const dispatch = useDispatch();
+    const getAllPostsData = () => {
+        dispatch(allPostData(10, pageCurrent));
+    }
+
+    const { get_all_posts } = useSelector((state) => state.app);
+
+    const [data, setData] = useState(get_all_posts);
+
+    useEffect(() => {
+        console.log("Page Size: ", pageCurrent);
+        setIsLoading(true);
+        getAllPostsData();
+        setData(data.concat(get_all_posts));
+        setIsLoading(false);
+    }, [pageCurrent]);
 
     const renderItem = ({item}) => {
         return (
@@ -57,7 +56,7 @@ const HomeScreen = (props) => {
                         <View style={Styles.detailInner1}>
                             <Image source={Icons.heart_ico} resizeMode="contain" style={Styles.icon1} />
                             <Image source={Icons.comment_ico} resizeMode="contain" style={Styles.icon2} />
-                            <Text style={Styles.commentText}>2 hours ago</Text>
+                            <Text style={Styles.commentText}>{item.id} hours ago</Text>
                         </View>
                         <View style={Styles.detailInner2}>
                             <Image source={Icons.option_ico} resizeMode="contain" style={Styles.icon3} />
@@ -70,7 +69,23 @@ const HomeScreen = (props) => {
                 </View>
             </View>
         );
+    
     }
+
+    const renderFooter = () => {
+        return (
+            isLoading ?
+            <View style={Styles.moreLoader}>
+                <ActivityIndicator size="large" color="#4888BF" />
+            </View> : null
+        );
+    }
+
+    const handleLoadMore = () => {
+        setPageCurrent(pageCurrent + 1); 
+        setIsLoading(true);
+    }
+    
     return (
         <>
             <Header 
@@ -81,12 +96,15 @@ const HomeScreen = (props) => {
                 RightIcon={Icons.add_ico}
             />
             <FlatList 
-                contentContainerStyle={{paddingBottom: height * 0.01}}
+                contentContainerStyle={{paddingBottom: height * 0.03}}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false} 
-                data={postData}
+                data={data}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={(item, index) => index.toString()}
+                ListFooterComponent={renderFooter}
+                onEndReached={handleLoadMore}
+                onEndReachedThreshold={0}
             />
         </>
     );
