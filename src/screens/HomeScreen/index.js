@@ -11,22 +11,22 @@ const postData = [
     {
         id: '1',
         title: 'Useful filters for your landscape photos',
-        body: 'This collection of awesome filters for your landscap…'
+        body: 'This collection of awesome filters for your landscap…This collection of awesome filters for your landscap…'
     },
     {
         id: '2',
         title: 'Useful filters for your landscape photos',
-        body: 'This collection of awesome filters for your landscap…'
+        body: 'This collection of awesome filters for your landscap…This collection of awesome filters for your landscap…'
     },
     {
         id: '3',
         title: 'Useful filters for your landscape photos',
-        body: 'This collection of awesome filters for your landscap…'
+        body: 'This collection of awesome filters for your landscap…This collection of awesome filters for your landscap…'
     },
     {
         id: '4',
         title: 'Useful filters for your landscape photos',
-        body: 'This collection of awesome filters for your landscap…'
+        body: 'This collection of awesome filters for your landscap…This collection of awesome filters for your landscap…'
     },
 ];
 
@@ -36,7 +36,23 @@ const HomeScreen = (props) => {
         return (
             <View style={Styles.MainContainer}>
                 <View style={Styles.postContainer}>
-                    <Image source={Images.post_img} resizeMode="contain" style={Styles.postImage} />
+                    <View style={Styles.userContainer}>
+                        <View style={Styles.userImgText}>
+                            <Image source={Icons.user_avatar_2_ico} resizeMode="contain" style={Styles.userIcon} />
+                            <View style={Styles.TextContainer}>
+                                <Text style={Styles.userNameText}>Mille Knudsen</Text>
+                                <Text style={Styles.subText}>Linz, Austria</Text>
+                            </View>
+                        </View>
+                        <TouchableOpacity
+                            style={Styles.userBtn}
+                            activeOpacity={1}
+                            onPress={() => {alert('Coming Soon')}}
+                        >
+                            <Image source={Icons.more_post_ico} resizeMode="contain" style={Styles.nextBtn} />
+                        </TouchableOpacity>
+                    </View>
+                    <Image source={Images.post_img} resizeMode="stretch" style={Styles.postImage} />
                     <View style={Styles.postDetailContainer}>
                         <View style={Styles.detailInner1}>
                             <Image source={Icons.heart_ico} resizeMode="contain" style={Styles.icon1} />
@@ -61,11 +77,11 @@ const HomeScreen = (props) => {
                 LeftPress={() => alert("Coming Soon")}
                 LeftIcon={Icons.filter_ico}
                 MiddleText={'posts'}
-                RightPress={() => alert("Coming Soon")}
+                RightPress={() => props.navigation.navigate('AddPost')}
                 RightIcon={Icons.add_ico}
             />
             <FlatList 
-                contentContainerStyle={{paddingBottom: height * 0.05 }}
+                contentContainerStyle={{paddingBottom: height * 0.01}}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false} 
                 data={postData}

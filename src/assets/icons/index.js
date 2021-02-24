@@ -26,6 +26,7 @@ const edit_ico = require('./pencil-icon.png');
 const submit_ico = require('./submit-icon.png');
 const post_avatar_ico = require('./post_avatar.png');
 const user_avatar_ico = require('./user_avatar.png');
+const user_avatar_2_ico = require('./user_avatar_2.png');
 
 
 export default {
@@ -51,5 +52,6 @@ export default {
     edit_ico,
     submit_ico,
     post_avatar_ico,
-    user_avatar_ico
+    user_avatar_ico,
+    user_avatar_2_ico
 }

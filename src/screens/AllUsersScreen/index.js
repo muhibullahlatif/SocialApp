@@ -89,7 +89,7 @@ const AllUsersScreen = (props) => {
             LeftPress={() => alert("Coming Soon")}
             LeftIcon={Icons.filter_ico}
             MiddleText={'users'}
-            RightPress={() => alert("Coming Soon")}
+            RightPress={() => props.navigation.navigate('AddUser')}
             RightIcon={Icons.add_ico}
         />
         <FlatList 

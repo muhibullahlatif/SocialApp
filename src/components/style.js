@@ -9,7 +9,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#FFF',
+        backgroundColor: '#4888BF',
         padding: 20,
         paddingTop: 35,
         shadowColor: "#4888BF",
@@ -25,10 +25,10 @@ export default StyleSheet.create({
         width: width * 0.040
     },
     headerMiddleText: {
-        color: '#5691C8',
+        color: '#FFF',
         textTransform: 'uppercase',
         fontSize: width * 0.045,
-        fontWeight: '500'
+        fontWeight: '600'
     },
     headerRightIcon: {
         width: width * 0.040
