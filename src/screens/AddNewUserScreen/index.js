@@ -4,12 +4,30 @@ import Styles from './style';
 import Icons from '../../assets/icons';
 import Images from '../../assets/images';
 import Header from '../../components/HeaderComponent';
+import CustomLoader from '../../components/CustomLoaderComponent';
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { AddNewUser } from '../../redux/actions/appActions';
 
 const AddNewUserScreen = (props) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [fullName, setFullName] = useState('');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [country, setCountry] = useState('');
+    const dispatch = useDispatch();
+
+    const submitNewUserData = async () => {
+        setIsLoading(true);
+        console.log(fullName, userName, email, country);
+        dispatch(AddNewUser(fullName, userName, email, country));
+        setIsLoading(false);
+        alert("User Created");
+    }
+
+    const { add_new_user } = useSelector((state) => state.app);
+    console.log(add_new_user);
+
     return (
         <>
             <Header 
@@ -59,13 +77,20 @@ const AddNewUserScreen = (props) => {
                         <TouchableOpacity
                             style={Styles.submitBtnContainer}
                             activeOpacity={1}
-                            onPress={() => alert('Submit')}
+                            onPress={() => submitNewUserData()}
                         >
                             <Image source={Icons.next_page_ico} resizeMode="contain" style={Styles.submitIcon} />    
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
             </ImageBackground>
+            {
+                isLoading
+                ?
+                    <CustomLoader />
+                : 
+                null
+            }
         </>
     );
 }

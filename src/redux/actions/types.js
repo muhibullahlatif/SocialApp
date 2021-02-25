@@ -1,3 +1,7 @@
 export const RESET_STORE = "RESET_STORE";
 
 export const GETALLPOSTS = "GETALLPOSTS";
+export const GETALLUSERS = "GETALLUSERS";
+export const GETUSERPOST = "GETUSERPOST";
+export const ADDNEWUSER = "ADDNEWUSER";
+export const ADDNEWPOST = "ADDNEWPOST";

@@ -91,8 +91,4 @@ export default StyleSheet.create({
         marginTop: 5,
         paddingBottom: 20,
     },
-    moreLoader: {
-        marginTop: 10,
-        alignItems: 'center'
-    },
 });

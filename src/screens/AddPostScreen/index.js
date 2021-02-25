@@ -4,10 +4,28 @@ import Styles from './style';
 import Icons from '../../assets/icons';
 import Images from '../../assets/images';
 import Header from '../../components/HeaderComponent';
+import CustomLoader from '../../components/CustomLoaderComponent';
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { AddNewPost } from '../../redux/actions/appActions';
 
 const AddPostScreen = (props) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [postTitle, setPostTitle] = useState('');
     const [postBody, setPostBody] = useState('');
+    const dispatch = useDispatch();
+
+    const submitNewPostData = async () => {
+        setIsLoading(true);
+        console.log(postTitle, postBody);
+        dispatch(AddNewPost(postTitle, postBody));
+        setIsLoading(false);
+        alert("Post Created");
+    }
+
+    const { add_new_post } = useSelector((state) => state.app);
+    console.log(add_new_post);
+
     return (
         <>
             <Header 
@@ -41,13 +59,23 @@ const AddPostScreen = (props) => {
                                 <Image source={Icons.attachment_ico} resizeMode="contain" style={Styles.attachIcon} />
                                 <Image source={Icons.camera_ico} resizeMode="contain" style={Styles.cameraIcon} />
                             </View>
-                            <View style={Styles.saveBtnContainer}>
+                            <TouchableOpacity 
+                                style={Styles.saveBtnContainer}
+                                activeOpacity={1}
+                                onPress={() => submitNewPostData()}>
                                 <Image source={Icons.submit_ico} resizeMode="contain" style={Styles.submitIcon} />
-                            </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
             </ImageBackground>
+            {
+                isLoading
+                ?
+                    <CustomLoader />
+                : 
+                null
+            }
         </>
     );
 }

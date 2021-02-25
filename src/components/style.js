@@ -33,4 +33,22 @@ export default StyleSheet.create({
     headerRightIcon: {
         width: width * 0.040
     },
+    // Loader Component
+    moreLoader: {
+        position: 'absolute',
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    loaderInner: {
+        width: 70,
+        height: 70
+    },
+    loaderText: {
+        color: '#FFF',
+        fontWeight: 'bold'
+    },
 });

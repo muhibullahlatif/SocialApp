@@ -4,6 +4,7 @@ import Styles from './style';
 import Icons from '../../assets/icons';
 import Images from '../../assets/images';
 import Header from '../../components/HeaderComponent';
+import CustomLoader from '../../components/CustomLoaderComponent';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { allPostData } from '../../redux/actions/appActions';
@@ -11,25 +12,19 @@ import { allPostData } from '../../redux/actions/appActions';
 const { height } = Dimensions.get('window');
 
 const HomeScreen = (props) => {
-    const [pageCurrent, setPageCurrent] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     
     const dispatch = useDispatch();
-    const getAllPostsData = () => {
-        dispatch(allPostData(10, pageCurrent));
+    const getAllPosts = async () => {
+        setIsLoading(true);
+        dispatch(allPostData(10, 1));
+        setIsLoading(false);
     }
+    useEffect(() => {
+        getAllPosts();
+    }, []);
 
     const { get_all_posts } = useSelector((state) => state.app);
-
-    const [data, setData] = useState(get_all_posts);
-
-    useEffect(() => {
-        console.log("Page Size: ", pageCurrent);
-        setIsLoading(true);
-        getAllPostsData();
-        setData(data.concat(get_all_posts));
-        setIsLoading(false);
-    }, [pageCurrent]);
 
     const renderItem = ({item}) => {
         return (
@@ -71,20 +66,6 @@ const HomeScreen = (props) => {
         );
     
     }
-
-    const renderFooter = () => {
-        return (
-            isLoading ?
-            <View style={Styles.moreLoader}>
-                <ActivityIndicator size="large" color="#4888BF" />
-            </View> : null
-        );
-    }
-
-    const handleLoadMore = () => {
-        setPageCurrent(pageCurrent + 1); 
-        setIsLoading(true);
-    }
     
     return (
         <>
@@ -99,13 +80,17 @@ const HomeScreen = (props) => {
                 contentContainerStyle={{paddingBottom: height * 0.03}}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false} 
-                data={data}
+                data={get_all_posts}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
-                ListFooterComponent={renderFooter}
-                onEndReached={handleLoadMore}
-                onEndReachedThreshold={0}
             />
+            {
+                isLoading
+                ?
+                    <CustomLoader />
+                : 
+                null
+            }
         </>
     );
 }
