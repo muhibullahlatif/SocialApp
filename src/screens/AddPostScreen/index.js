@@ -1,30 +1,53 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, ImageBackground, TextInput } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ImageBackground, TextInput, ToastAndroid } from 'react-native';
 import Styles from './style';
 import Icons from '../../assets/icons';
 import Images from '../../assets/images';
 import Header from '../../components/HeaderComponent';
 import CustomLoader from '../../components/CustomLoaderComponent';
+import SuccessAlert from '../../components/SuccessAlertComponent';
+import ErrorAlert from '../../components/ErrorAlertComponent';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { AddNewPost } from '../../redux/actions/appActions';
+// Validations
+import { isEmpty } from '../../constants/functions';
 
 const AddPostScreen = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [postTitle, setPostTitle] = useState('');
     const [postBody, setPostBody] = useState('');
+    const [isSuccessAlert, setIsSuccessAlert] = useState(false);
+    const [isErrorAlert, setIsErrorAlert] = useState(false);
+
     const dispatch = useDispatch();
 
     const submitNewPostData = async () => {
-        setIsLoading(true);
         console.log(postTitle, postBody);
-        dispatch(AddNewPost(postTitle, postBody));
-        setIsLoading(false);
-        alert("Post Created");
+        if(isEmpty(postTitle) || isEmpty(postBody)){
+            ToastAndroid.show("Please Fill All Fields", ToastAndroid.LONG, ToastAndroid.BOTTOM);
+        }
+        else{
+            setIsLoading(true);
+            dispatch(AddNewPost(postTitle, postBody));
+            setIsLoading(false);
+            if(AddNewPost(postTitle, postBody)){
+                setIsSuccessAlert(true);
+                setTimeout(() => {
+                    setIsSuccessAlert(false);
+                }, 3000);
+            }
+            else{
+                setIsErrorAlert(true);
+                setTimeout(() => {
+                    setIsErrorAlert(false);
+                }, 3000);
+            }
+        }
     }
 
     const { add_new_post } = useSelector((state) => state.app);
-    console.log(add_new_post);
+    console.log("Testing -> ", add_new_post);
 
     return (
         <>
@@ -74,6 +97,26 @@ const AddPostScreen = (props) => {
                 ?
                     <CustomLoader />
                 : 
+                null
+            }
+            {
+                isSuccessAlert 
+                ?
+                <SuccessAlert
+                    mainParentText={"Success !!!"}
+                    subChildText={"Post added successfully."}
+                />
+                :
+                null
+            }
+            {
+                isErrorAlert 
+                ?
+                <ErrorAlert
+                    mainParentText={"Failed !!!"}
+                    subChildText={"Oh! Please try again."}
+                />
+                :
                 null
             }
         </>

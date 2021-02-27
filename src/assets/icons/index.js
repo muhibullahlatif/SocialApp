@@ -30,6 +30,10 @@ const user_avatar_2_ico = require('./user_avatar_2.png');
 const user_avatar_3_ico = require('./avatar3.png');
 const user_avatar_4_ico = require('./avatar4.png');
 const add_story_ico = require('./add_story.png');
+const close_side_ico = require('./side_close_icon.png');
+const failed_alert_ico = require('./close_ico.png');
+const success_alert_ico = require('./success_icon.png');
+const warning_alert_ico = require('./warn-Icon.png');
 
 export default {
     home_active,
@@ -58,5 +62,9 @@ export default {
     user_avatar_2_ico,
     user_avatar_3_ico,
     user_avatar_4_ico,
-    add_story_ico
+    add_story_ico,
+    close_side_ico,
+    failed_alert_ico,
+    success_alert_ico,
+    warning_alert_ico
 }

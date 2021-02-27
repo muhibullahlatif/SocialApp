@@ -5,6 +5,7 @@ import Icons from '../../assets/icons';
 import Images from '../../assets/images';
 import Header from '../../components/HeaderComponent';
 import CustomLoader from '../../components/CustomLoaderComponent';
+import WarnAlert from '../../components/WarnAlertComponent';
 import AsyncStorage from '@react-native-community/async-storage';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,6 +15,12 @@ const { height } = Dimensions.get('window');
 
 const UsersPostScreen = (props) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [isWarnAlert, setIsWarnAlert] = useState(false);
+
+    setTimeout(() => {
+        setIsWarnAlert(false);
+    }, 5000);
+
     const dispatch = useDispatch();
 
     const getUserId_PostData = async () => {
@@ -45,7 +52,7 @@ const UsersPostScreen = (props) => {
                         <TouchableOpacity
                             style={Styles.userBtn}
                             activeOpacity={1}
-                            onPress={() => {alert('Coming Soon')}}
+                            onPress={() => setIsWarnAlert(true)}
                         >
                             <Image source={Icons.more_post_ico} resizeMode="contain" style={Styles.nextBtn} />
                         </TouchableOpacity>
@@ -84,6 +91,16 @@ const UsersPostScreen = (props) => {
                 :
                     null
             }
+            {
+                    isWarnAlert 
+                    ?
+                    <WarnAlert
+                        mainParentText={"Coming Soon !!!"}
+                        subChildText={"We will launch this option in phase 2."}
+                    />
+                    :
+                    null
+                }
         </>
     );
 }

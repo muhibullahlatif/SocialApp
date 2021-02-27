@@ -5,15 +5,22 @@ import Icons from '../../assets/icons';
 import Images from '../../assets/images';
 import Header from '../../components/HeaderComponent';
 import CustomLoader from '../../components/CustomLoaderComponent';
+import WarnAlert from '../../components/WarnAlertComponent';
 import storyData from '../../constants/config';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { allPostData } from '../../redux/actions/appActions';
+
  
 const { width, height } = Dimensions.get('window');
 
 const HomeScreen = (props) => {
     const [isLoading, setIsLoading] = useState(true);
+    const [isWarnAlert, setIsWarnAlert] = useState(false);
+
+    setTimeout(() => {
+        setIsWarnAlert(false);
+    }, 3000);
     
     const dispatch = useDispatch();
     const getAllPosts = async () => {
@@ -41,7 +48,7 @@ const HomeScreen = (props) => {
                         <TouchableOpacity
                             style={Styles.userBtn}
                             activeOpacity={1}
-                            onPress={() => {alert('Coming Soon')}}
+                            onPress={() => setIsWarnAlert(true)}
                         >
                             <Image source={Icons.more_post_ico} resizeMode="contain" style={Styles.nextBtn} />
                         </TouchableOpacity>
@@ -124,6 +131,16 @@ const HomeScreen = (props) => {
                     ?
                         <CustomLoader />
                     : 
+                    null
+                }
+                {
+                    isWarnAlert 
+                    ?
+                    <WarnAlert
+                        mainParentText={"Coming Soon !!!"}
+                        subChildText={"We will launch this option in phase 2."}
+                    />
+                    :
                     null
                 }
             </View>
