@@ -65,11 +65,11 @@ const UsersPostScreen = (props) => {
             <Header 
                 LeftPress={() => props.navigation.goBack()}
                 LeftIcon={Icons.back_ico}
-                MiddleText={'your all posts'}
+                MiddleText={'your timeline'}
             />
             <View style={Styles.MainContainer}>
                 <FlatList 
-                    contentContainerStyle={{paddingBottom: height * 0.11}}
+                    contentContainerStyle={{paddingBottom: height * 0.15}}
                     scrollEnabled={true}
                     showsVerticalScrollIndicator={false} 
                     data={get_user_post}

@@ -25,7 +25,7 @@ export default StyleSheet.create({
     },
     optText1: {
         marginLeft: 10,
-        color: '#4888BF',
+        color: '#767FF0',
         fontSize: width * 0.038,
         fontWeight: '500',
     },

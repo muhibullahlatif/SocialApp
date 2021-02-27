@@ -49,9 +49,8 @@ export default StyleSheet.create({
     cameraIcon: {
         marginLeft: 20,
     },
-    saveBtnContainer: {
-        backgroundColor: '#518EC2',
-        padding: 10,
-        borderRadius: 50
+    submitIcon: {
+        width: 35,
+        height: 35
     },
 });

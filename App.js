@@ -9,7 +9,7 @@ import { store, persistor } from './src/redux/store';
 function App() {
   return (
     <>
-      <StatusBar backgroundColor="#4888BF" />
+      <StatusBar translucent backgroundColor="transparent" />
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Navigation />

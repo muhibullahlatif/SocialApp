@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { Image, Dimensions, StyleSheet } from 'react-native';
 import Icons from '../assets/icons';
+import LinearGradient from 'react-native-linear-gradient';
 // Navigation Container
 import { NavigationContainer } from '@react-navigation/native';
 // Stack NavBar

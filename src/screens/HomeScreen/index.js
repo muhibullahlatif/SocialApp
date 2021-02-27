@@ -5,23 +5,23 @@ import Icons from '../../assets/icons';
 import Images from '../../assets/images';
 import Header from '../../components/HeaderComponent';
 import CustomLoader from '../../components/CustomLoaderComponent';
+import storyData from '../../constants/config';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { allPostData } from '../../redux/actions/appActions';
  
-const { height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const HomeScreen = (props) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     
     const dispatch = useDispatch();
     const getAllPosts = async () => {
-        setIsLoading(true);
         dispatch(allPostData(10, 1));
-        setIsLoading(false);
     }
     useEffect(() => {
         getAllPosts();
+        setIsLoading(false);
     }, []);
 
     const { get_all_posts } = useSelector((state) => state.app);
@@ -66,31 +66,67 @@ const HomeScreen = (props) => {
         );
     
     }
+
+    const storyRenderItem = ({item}) => {
+        return (
+            <View style={Styles.storyAndMoments}>
+                <Image source={item.image} resizeMode="cover" style={Styles.storyImg} />
+            </View>
+        );
+    }
     
     return (
         <>
             <Header 
-                LeftPress={() => alert("Coming Soon")}
-                LeftIcon={Icons.filter_ico}
-                MiddleText={'posts'}
-                RightPress={() => props.navigation.navigate('AddPost')}
-                RightIcon={Icons.add_ico}
+                MiddleText={'news feed'}
             />
-            <FlatList 
-                contentContainerStyle={{paddingBottom: height * 0.03}}
-                scrollEnabled={true}
-                showsVerticalScrollIndicator={false} 
-                data={get_all_posts}
-                renderItem={renderItem}
-                keyExtractor={(item, index) => index.toString()}
-            />
-            {
-                isLoading
-                ?
-                    <CustomLoader />
-                : 
-                null
-            }
+            <View style={Styles.Main}>
+                <View style={Styles.addPostContainer}>
+                    <View style={Styles.addPostInnerContainer}>
+                        <Image source={Icons.user_avatar_ico} resizeMode="contain" style={Styles.userPostIco} />
+                        <TouchableOpacity 
+                            style={Styles.addPostBtn}
+                            activeOpacity={1}
+                            onPress={() => props.navigation.navigate('AddPost')}>
+                            <Text style={Styles.addPostText}>What's on your mind?</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={Styles.storyContainer}>
+                    <Text style={Styles.storyText}>Stories & Moments</Text>
+                    <View style={Styles.stories}>
+                        <View style={Styles.addStory}>
+                            <Image source={Icons.add_story_ico} resizeMode="contain" />
+                        </View>
+                        <View style={Styles.postedStories}>
+                            <FlatList
+                                contentContainerStyle={{ paddingRight: 60}}
+                                showsHorizontalScrollIndicator={false} 
+                                horizontal={true}
+                                scrollEnabled={true}
+                                data={storyData.storiesData}
+                                renderItem={storyRenderItem}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        </View>
+                    </View>
+                </View>
+                <FlatList 
+                    contentContainerStyle={{paddingBottom: height * 0.45}}
+                    scrollEnabled={true}
+                    showsVerticalScrollIndicator={false} 
+                    data={get_all_posts}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+                {
+                    isLoading
+                    ?
+                        <CustomLoader />
+                    : 
+                    null
+                }
+            </View>
         </>
     );
 }

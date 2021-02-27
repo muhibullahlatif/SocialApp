@@ -25,10 +25,10 @@ export default StyleSheet.create({
     infoTitle: {
         fontSize: width * 0.041,
         fontWeight: '500',
-        color: '#585858',
+        color: '#D067A2',
     },
     infoBody: {
-        color: '#4888BF',
+        color: '#7180F5',
         marginTop: 10,
         textAlign: 'justify',
         fontSize: width * 0.035,

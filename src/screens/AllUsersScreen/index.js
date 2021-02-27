@@ -12,16 +12,15 @@ import { allUserData } from '../../redux/actions/appActions';
 const { height } = Dimensions.get('window');
 
 const AllUsersScreen = (props) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const dispatch = useDispatch();
     const getAllUsers = async () => {
-        setIsLoading(true);
         dispatch(allUserData());
-        setIsLoading(false);
     }
     useEffect(() => {
         getAllUsers();
+        setIsLoading(false);
     }, []);
 
     const { get_all_users } = useSelector((state) => state.app);
@@ -39,7 +38,7 @@ const AllUsersScreen = (props) => {
                         <Image source={Icons.user_avatar_ico} resizeMode="contain" style={Styles.userIcon} />
                         <View style={Styles.TextContainer}>
                             <Text style={Styles.userNameText}>{item.name}</Text>
-                            <Text style={Styles.subText}>{item.id}, {item.username}, {item.address.city}</Text>
+                            <Text style={Styles.subText}>{item.username}, {item.address.city}</Text>
                         </View>
                     </View>
                     <TouchableOpacity
@@ -56,9 +55,7 @@ const AllUsersScreen = (props) => {
     return (
         <>
         <Header 
-            LeftPress={() => alert("Coming Soon")}
-            LeftIcon={Icons.filter_ico}
-            MiddleText={'users'}
+            MiddleText={'my friends'}
             RightPress={() => props.navigation.navigate('AddUser')}
             RightIcon={Icons.add_ico}
         />

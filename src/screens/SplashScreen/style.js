@@ -5,6 +5,6 @@ const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
     MainContainer: {
         width: width,
-        height: height
+        height: '100%'
     },
 });

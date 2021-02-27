@@ -14,14 +14,14 @@ export default StyleSheet.create({
         padding: 15,
         backgroundColor: '#FFF',
         borderRadius: 10,
-        shadowColor: "#4888BF",
+        shadowColor: "#E06394",
         shadowOffset: {
             width: 0,
             height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5,
+        elevation: 7,
     },
     userImgText: {
         display: 'flex',
@@ -36,9 +36,9 @@ export default StyleSheet.create({
         marginLeft: 10
     },
     userNameText: {
-        color: '#141821'
+        color: '#E06394'
     },
     subText: {
-        color: '#858997'
+        color: '#7180F5'
     },
 });

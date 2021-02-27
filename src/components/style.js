@@ -4,13 +4,16 @@ const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
     // Header Component
+    bgContainer: {
+        width: '100%',
+    },
     HeaderContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#4888BF',
         padding: 20,
+        marginTop: 30,
         paddingTop: 35,
         shadowColor: "#4888BF",
         shadowOffset: {
@@ -37,8 +40,8 @@ export default StyleSheet.create({
     moreLoader: {
         position: 'absolute',
         backgroundColor: 'rgba(0,0,0,0.6)',
-        width: '100%',
-        height: '100%',
+        width: width,
+        height: height,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'

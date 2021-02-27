@@ -40,7 +40,7 @@ export default StyleSheet.create({
         width: '80%'
     },
     userNameText: {
-        color: '#141821'
+        color: '#E06394'
     },
     subText: {
         color: '#858997'
@@ -55,6 +55,6 @@ export default StyleSheet.create({
         marginBottom: 20
     },
     postBody: {
-        color: '#141821'
+        color: '#7180F5'
     },
 });

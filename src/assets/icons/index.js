@@ -27,7 +27,9 @@ const submit_ico = require('./submit-icon.png');
 const post_avatar_ico = require('./post_avatar.png');
 const user_avatar_ico = require('./user_avatar.png');
 const user_avatar_2_ico = require('./user_avatar_2.png');
-
+const user_avatar_3_ico = require('./avatar3.png');
+const user_avatar_4_ico = require('./avatar4.png');
+const add_story_ico = require('./add_story.png');
 
 export default {
     home_active,
@@ -53,5 +55,8 @@ export default {
     submit_ico,
     post_avatar_ico,
     user_avatar_ico,
-    user_avatar_2_ico
+    user_avatar_2_ico,
+    user_avatar_3_ico,
+    user_avatar_4_ico,
+    add_story_ico
 }
