@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import Styles from './style';
 import Images from '../assets/images';
-// import LinearGradient from 'react-native-linear-gradient';
 
 const HeaderComponent = (props) => {
     return (

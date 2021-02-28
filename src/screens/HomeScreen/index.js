@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, Image, TouchableOpacity, FlatList, Dimensions, ScrollView, LogBox } from 'react-native';
 import Styles from './style';
 import Icons from '../../assets/icons';
 import Images from '../../assets/images';
@@ -11,7 +11,6 @@ import storyData from '../../constants/config';
 import { useSelector, useDispatch } from 'react-redux';
 import { allPostData } from '../../redux/actions/appActions';
 
- 
 const { width, height } = Dimensions.get('window');
 
 const HomeScreen = (props) => {
@@ -81,12 +80,24 @@ const HomeScreen = (props) => {
             </View>
         );
     }
-    
-    return (
-        <>
-            <Header 
-                MiddleText={'news feed'}
-            />
+
+    const renderFlatList = () => {
+        return (
+            <View>
+                <FlatList 
+                    contentContainerStyle={{paddingBottom: height * 0.01}}
+                    scrollEnabled={true}
+                    showsVerticalScrollIndicator={false} 
+                    data={get_all_posts}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            </View>
+        );
+    }
+
+    const renderPostAndStories = () => {
+        return (
             <View style={Styles.Main}>
                 <View style={Styles.addPostContainer}>
                     <View style={Styles.addPostInnerContainer}>
@@ -118,34 +129,40 @@ const HomeScreen = (props) => {
                         </View>
                     </View>
                 </View>
-                <FlatList 
-                    contentContainerStyle={{paddingBottom: height * 0.45}}
-                    scrollEnabled={true}
-                    showsVerticalScrollIndicator={false} 
-                    data={get_all_posts}
-                    renderItem={renderItem}
-                    keyExtractor={(item, index) => index.toString()}
-                />
-                {
-                    isLoading
-                    ?
-                        <CustomLoader />
-                    : 
-                    null
-                }
-                {
-                    isWarnAlert 
-                    ?
-                    <WarnAlert
-                        mainParentText={"Coming Soon !!!"}
-                        subChildText={"We will launch this option in phase 2."}
-                    />
-                    :
-                    null
-                }
             </View>
+        );
+    }
+    
+    return (
+        <>
+            <Header 
+                MiddleText={'news feed'}
+            />
+            <ScrollView scrollEnabled={true} showsVerticalScrollIndicator={false}>
+                <View>
+                    {renderPostAndStories()}
+                    {renderFlatList()}
+                </View>
+            </ScrollView>
+            {
+                isLoading
+                ?
+                    <CustomLoader />
+                : 
+                null
+            }
+            {
+                isWarnAlert 
+                ?
+                <WarnAlert
+                    mainParentText={"Coming Soon !!!"}
+                    subChildText={"We will launch this option in phase 2."}
+                />
+                :
+                null
+            }
         </>
     );
 }
-
+LogBox.ignoreAllLogs(false);
 export default HomeScreen;

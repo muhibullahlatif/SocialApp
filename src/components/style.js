@@ -62,7 +62,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: width,
-        height: height,
+        height: '100%',
         padding: 10,
     },
     alertBgColor: {
